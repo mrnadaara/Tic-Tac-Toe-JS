@@ -9,16 +9,17 @@ function start(playerXName, playerOName) {
   let boardSlots = document.getElementsByClassName('slot');
   let currentTurn = 1;
   let status;
-
+  let playerIndicator = document.getElementById('game-status');
+  playerIndicator.innerText = player1.name + "'s turn";
   for (let i = 0; i < boardSlots.length; i++) {
-    boardSlots[i].addEventListener('click', () => {
-      const row = Number(this.getAttribute('data-row'));
-      const column = Number(this.getAttribute('data-column'));
+    boardSlots[i].addEventListener('click', (e) => {
+      const row = Number(e.target.getAttribute('data-row'));
+      const column = Number(e.target.getAttribute('data-column'));
 
       if (!Board.slotAvailable(row, column)) return;
 
       // this is going to be either go, x, o, or draw
-      this.innerText = currentTurn === 1 ? 'x' : 'o';
+      e.target.innerText = currentTurn === 1 ? 'x' : 'o';
       status = Board.status();
 
       // here I check if the status is a game over one
@@ -26,6 +27,7 @@ function start(playerXName, playerOName) {
 
       // if everything is fine, we continue
       currentTurn = currentTurn === 1 ? 2 : 1;
+      playerIndicator = currentTurn === 1 ? player1.name + "'s turn" : player2.name + "'s turn";
     });
   }
 }

@@ -6,5 +6,5 @@ startButton.addEventListener('click', () => {
   let playerXName = document.getElementById('x-name').value;
   let playerOName = document.getElementById('o-name').value;
   // Check the names
-  Game.start(playerXName, playerOName);
+  Game(playerXName, playerOName);
 });
