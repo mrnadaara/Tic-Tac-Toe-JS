@@ -5,49 +5,109 @@ let board = [
   [0, 0, 0]
 ];
 
-// This is for changing a position to either 1, or 2
-const changeSlot = () => {
-}
-
 // This is for checking win or draw
 const status = () => {
-  // const row1 = [board[0][0], board[0][1], board[0][2]];
-  // const row2 = [board[1][0], board[1][1], board[1][2]];
-  // const row3 = [board[2][0], board[2][1], board[2][2]];
-  board.forEach((b) => {
-    const value = b[0];
-    b.every((currentSlot) => {
-      return currentSlot === value;
-    });
-  });
+  // these two variables keep track of the winner
+  let winner = false;
+  let value, player;
 
+  // in here we iterate over the rows to check for a winner
+  try {
+    board.forEach((row) => {
+      value = row[0];
+
+      winner = row.every(slot => {
+        return slot === value;
+      });
+
+      player = value === 1 ? 'x' : 'o';
+
+      if (winner) throw BreakException;
+    });
+  } catch (e) {
+    if (e !== BreakException) throw e;
+  }
+
+  if (winner) return player;
+
+  // in here we check for a diagonal with all the values equal
   let leftToRightDiag = [];
+
   for(let i = 0; i < board.length; i++){
     leftToRightDiag.push(board[i][i]);
   }
-  leftToRightDiag.every((currentSlot) => {
+
+  winner = leftToRightDiag.every((currentSlot) => {
     return currentSlot === leftToRightDiag[0];
   });
 
-  let column = [];
-  for(let i = 0; i < board.length; i++){
-    for(let j = 0; j < board.length; j++){
+  value = leftToRightDiag[0];
+  player = value === 1 ? 'x' : 'o';
+
+  if (winner) return player;
+
+  // in this part we go for the columns
+  let columns = [], column;
+
+  for(let i = 0; i < board.length; i++) {
+    column = [];
+
+    for(let j = 0; j < board.length; j++) {
       column.push(board[j][i]);
     }
+
+    columns.push(column);
   }
-  column.every((currentSlot) => {
-    return currentSlot === column[0];
+
+  let values = columns.map(column => {
+    return column[0];
   });
 
+  try {
+    columns.forEach((column, index) => {
+      winner = column.every(slot => {
+        return slot === values[index]
+      });
+
+      player = values[index] === 1 ? 'x' : 'o';
+
+      if (winner) throw BreakException;
+    });
+  } catch (e) {
+    if (e !== BreakException) throw e;
+  }
+
+  if (winner) return player;
+
+  // and in this one we go for the right to left diagonal
   let rightToLeft = [];
   let counter = 2;
-  for(let i = 0; i < board.length; i++){
+
+  for(let i = 0; i < board.length; i++) {
     rightToLeft.push(board[i][counter]);
     counter--;
   }
-  rightToLeft.every((currentSlot) => {
+
+  winner = rightToLeft.every((currentSlot) => {
     return currentSlot === rightToLeft[0];
   });
+
+  value = rightToLeft[0];
+  player = value === 1 ? 'x' : 'o';
+
+  if (winner) return player;
+
+  return isDraw();
+}
+
+const isDraw = () => {
+  const allDifferent = board.every(row => {
+    return row.every(col => col !== 0);
+  });
+
+  if (allDifferent) return 'draw';
+
+  return 'go';
 }
 
 // This is for printing the board at the beginning
@@ -74,4 +134,4 @@ const slotAvailable = (row, col) => {
   return board[row][col] === 0;
 }
 
-export { changeSlot, status, render, update, slotAvailable };
+export { status, render, update, slotAvailable };
