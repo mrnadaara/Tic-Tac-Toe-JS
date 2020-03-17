@@ -10,35 +10,58 @@ function start(playerXName, playerOName) {
   let currentTurn = 1;
   let status;
   let playerIndicator = document.getElementById('game-status');
+  let gameStatusText;
   playerIndicator.innerText = player1.name + "'s turn";
+
   for (let i = 0; i < boardSlots.length; i++) {
     boardSlots[i].addEventListener('click', (e) => {
       const row = Number(e.target.getAttribute('data-row'));
       const column = Number(e.target.getAttribute('data-column'));
 
+      // if that slot is not available do nothing
       if (!Board.slotAvailable(row, column)) return;
 
-      // this is going to be either go, x, o, or draw
+      // change the inner text of the slot
       e.target.innerText = currentTurn === 1 ? 'x' : 'o';
+
+      // it is important to update the board before getting the status
+      // because if not then you'll be parsing a past board
+
+      // update the board
+      Board.update(row, column, currentTurn);
+
+      // the status is going to be either go, x, o, or draw
       status = Board.status();
 
       // here I check if the status is a game over one
-      if (status !== 'go') gameOver(status, player1.name, player2.name);
+      if (status !== 'go') {
+        gameOver(status, player1.name, player2.name);
+
+        return;
+      }
+
 
       // if everything is fine, we continue
       currentTurn = currentTurn === 1 ? 2 : 1;
-      playerIndicator = currentTurn === 1 ? player1.name + "'s turn" : player2.name + "'s turn";
+
+      if (currentTurn === 1) {
+        gameStatusText = player1.name + "'s turn";
+      } else {
+        gameStatusText = player2.name + "'s turn";
+      }
+
+      playerIndicator.innerText = gameStatusText;
     });
   }
 }
 
 function gameOver(status, playerXName, playerOName) {
-  let boardSlots = document.getElementByClassName('slot');
+  let gameBoard = document.getElementById('board-container');
   let gameStatus = document.getElementById('game-status');
 
   // I am going to delete all the slots to clear the board
-  for (let i = 0; i < boardSlots.length; i++) {
-    boardSlots[i].parentNode.removeChild(boardSlots[i]);
+  while (gameBoard.children.length !== 0) {
+    gameBoard.removeChild(gameBoard.firstChild);
   }
 
   // this part checks for the last board status

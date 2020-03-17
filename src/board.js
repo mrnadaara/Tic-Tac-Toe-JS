@@ -10,11 +10,15 @@ const status = () => {
   // these two variables keep track of the winner
   let winner = false;
   let value, player;
+  // this is for faking a break inside a forEach
+  let BreakException = {};
 
   // in here we iterate over the rows to check for a winner
   try {
     board.forEach((row) => {
       value = row[0];
+
+      if (value === 0) return;
 
       winner = row.every(slot => {
         return slot === value;
@@ -42,6 +46,9 @@ const status = () => {
   });
 
   value = leftToRightDiag[0];
+
+  if (value === 0) winner = false;
+
   player = value === 1 ? 'x' : 'o';
 
   if (winner) return player;
@@ -65,8 +72,10 @@ const status = () => {
 
   try {
     columns.forEach((column, index) => {
+      if (values[index] === 0) return;
+
       winner = column.every(slot => {
-        return slot === values[index]
+        return slot === values[index];
       });
 
       player = values[index] === 1 ? 'x' : 'o';
@@ -93,6 +102,9 @@ const status = () => {
   });
 
   value = rightToLeft[0];
+
+  if (value === 0) winner = false;
+
   player = value === 1 ? 'x' : 'o';
 
   if (winner) return player;
@@ -125,8 +137,6 @@ const render = () => {
 
 // This is for updating the already printed board
 const update = (row, col, value) => {
-  let slot = document.querySelector(`.slot[data-row="${row}"][data-column="${col}"]`);
-  slot.innerText = value === 1 ? 'x' : 'o';
   board[row][col] = value;
 }
 
