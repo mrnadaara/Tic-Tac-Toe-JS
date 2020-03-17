@@ -6,7 +6,7 @@ function start(playerXName, playerOName) {
   Board.render();
   let player1 = Player(playerXName, 1);
   let player2 = Player(playerOName, 2);
-  let boardSlots = document.getElementsByClassName('.slot');
+  let boardSlots = document.getElementsByClassName('slot');
   let currentTurn = 1;
 
   for (let i = 0; i < boardSlots.length; i++) {
@@ -17,7 +17,7 @@ function start(playerXName, playerOName) {
       if (!Board.slotAvailable(row, column)) return;
 
       this.innerText = currentTurn === 1 ? 'x' : 'o';
-      currentTurn = currentTurn === 1 ? 'o' : 'x';
+      currentTurn = currentTurn === 1 ? 2 : 1;
     });
   }
 }
