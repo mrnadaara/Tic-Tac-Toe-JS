@@ -1,3 +1,6 @@
+import 'bootstrap';
+import './main.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Game from './game';
 
 let startButton = document.getElementById('start');
