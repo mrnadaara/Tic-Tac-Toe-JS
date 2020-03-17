@@ -115,7 +115,7 @@ const render = () => {
   board.forEach((b, outerIndex) => {
     b.forEach((innerB, innerIndex) => {
       let slots = document.createElement('div');
-      slots.setAttribute('class', 'slot');
+      slots.classList.add('slot');
       slots.setAttribute('data-row', outerIndex);
       slots.setAttribute('data-column', innerIndex);
       document.getElementById('board-container').appendChild(slots);
