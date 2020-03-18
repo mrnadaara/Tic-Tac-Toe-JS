@@ -1,48 +1,62 @@
-main{
-    height: 100vh;
+@font-face {
+  font-family: 'Permanent Marker';
+  src: url('./PermanentMarker-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
+body {
+  min-height: 100vh;
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+
+h1, #game-status {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#repo-link { font-size: 40px; }
+
 #board-container{
-    padding-top: 20px;
-    height: 400px;
-    width: 400px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+  height: 400px;
+  width: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
 }
 
 .game-body{
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.full-height {
-    height: 100%;
-}
-
-header{
-    background-color: #f39c12;
-}
-
-.game-form{
-    background-color: #f39c12;
+.bg-orange {
+  background-color: #FFA500;
 }
 
 .slot {
-    border: 1px solid #f39c12;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 50px;
-    color: #f39c12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: #FFA500;
+  background-color: #333;
 }
 
 #game-status {
-    font-size: 50px;
-    color: black;
-    font-weight: bold;
+  font-size: 30px;
+  color: black;
 }
 
 .nav-link {
-    color: black;
+  color: black;
 }

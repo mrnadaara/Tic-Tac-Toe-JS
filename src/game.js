@@ -1,20 +1,37 @@
 import Player from './player';
 import * as Board from './board';
 
+function checkWinStatus(status, player) {
+  if (status === player.symbol) player.winner = true;
+
+  return null;
+}
+
 function start(playerXName, playerOName) {
-  // After getting the players, we render the form
+  // I am going to delete all the slots to clear the board
+  let gameBoard = document.getElementById('board-container');
+
+  while (gameBoard.children.length !== 0) {
+    gameBoard.removeChild(gameBoard.firstChild);
+  }
+
+  // Clear the board array
+  Board.clear();
+  // After getting the players, we render the board
   Board.render();
-  let player1 = Player(playerXName, 1);
-  let player2 = Player(playerOName, 2);
+  let playerX = Player(playerXName, 'x');
+  let playerO = Player(playerOName, 'o');
   let boardSlots = document.getElementsByClassName('slot');
-  let currentTurn = 1;
+  let currentPlayer = playerX;
   let status;
+  let gameStatus = document.getElementById('game-status');
   let playerIndicator = document.getElementById('game-status');
-  let gameStatusText;
-  playerIndicator.innerText = player1.name + "'s turn";
+  playerIndicator.innerText = playerX.name + "'s turn";
 
   for (let i = 0; i < boardSlots.length; i++) {
     boardSlots[i].addEventListener('click', (e) => {
+      if (playerX.winner || playerO.winner) return;
+
       const row = Number(e.target.getAttribute('data-row'));
       const column = Number(e.target.getAttribute('data-column'));
 
@@ -22,60 +39,46 @@ function start(playerXName, playerOName) {
       if (!Board.slotAvailable(row, column)) return;
 
       // change the inner text of the slot
-      e.target.innerText = currentTurn === 1 ? 'x' : 'o';
+      e.target.innerText = currentPlayer === playerX ? 'x' : 'o';
 
       // it is important to update the board before getting the status
       // because if not then you'll be parsing a past board
 
       // update the board
-      Board.update(row, column, currentTurn);
+      Board.update(row, column, currentPlayer);
 
       // the status is going to be either go, x, o, or draw
       status = Board.status();
 
       // here I check if the status is a game over one
       if (status !== 'go') {
-        gameOver(status, player1.name, player2.name);
+        checkWinStatus(status, playerX);
+        checkWinStatus(status, playerO);
+        gameOver(status, playerX, playerO);
 
         return;
       }
 
-
       // if everything is fine, we continue
-      currentTurn = currentTurn === 1 ? 2 : 1;
-
-      if (currentTurn === 1) {
-        gameStatusText = player1.name + "'s turn";
-      } else {
-        gameStatusText = player2.name + "'s turn";
-      }
-
-      playerIndicator.innerText = gameStatusText;
+      currentPlayer = currentPlayer === playerX ? playerO : playerX;
+      gameStatus.innerText = currentPlayer.name + "'s turn";
     });
   }
 }
 
-function gameOver(status, playerXName, playerOName) {
+function gameOver(status, playerX, playerO) {
   let gameBoard = document.getElementById('board-container');
   let gameStatus = document.getElementById('game-status');
 
-  // I am going to delete all the slots to clear the board
-  while (gameBoard.children.length !== 0) {
-    gameBoard.removeChild(gameBoard.firstChild);
+  if (playerX.winner) {
+    gameStatus.innerText = playerX.name + ' wins!';
+  } else if (playerO.winner) {
+    gameStatus.innerText = playerO.name + ' wins!';
+  } else {
+    gameStatus.innerText = 'It is a draw!';
   }
 
-  // this part checks for the last board status
-  switch (status) {
-    case 'draw':
-      gameStatus.innerText = 'It is a draw!';
-      break;
-    case 'x':
-      gameStatus.innerText = playerXName + ' wins!';
-      break;
-    case 'o':
-      gameStatus.innerText = playerOName + ' wins!';
-      break;
-  }
+  return null;
 }
 
 export default start;

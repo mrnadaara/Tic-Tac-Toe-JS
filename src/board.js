@@ -9,105 +9,92 @@ let board = [
 const status = () => {
   // these two variables keep track of the winner
   let winner = false;
-  let value, player;
-  // this is for faking a break inside a forEach
-  let BreakException = {};
+  let value, player, row;
 
   // in here we iterate over the rows to check for a winner
-  try {
-    board.forEach((row) => {
-      value = row[0];
+  for (let i = 0; i < 3; i++) {
+    row = board[i];
+    value = row[0];
 
-      if (value === 0) return;
+    if (value === 0) continue;
 
-      winner = row.every(slot => {
-        return slot === value;
-      });
-
-      player = value === 1 ? 'x' : 'o';
-
-      if (winner) throw BreakException;
+    winner = row.every(slot => {
+      return slot === value;
     });
-  } catch (e) {
-    if (e !== BreakException) throw e;
+
+    player = value === 1 ? 'x' : 'o';
   }
 
   if (winner) return player;
 
   // in here we check for a diagonal with all the values equal
-  let leftToRightDiag = [];
+  let leftToRightDiagonal = [];
 
   for(let i = 0; i < board.length; i++){
-    leftToRightDiag.push(board[i][i]);
+    if (board[i][i] === 0) break;
+    leftToRightDiagonal.push(board[i][i]);
   }
 
-  winner = leftToRightDiag.every((currentSlot) => {
-    return currentSlot === leftToRightDiag[0];
-  });
+  if (leftToRightDiagonal.length === 3) {
+    winner = leftToRightDiagonal.every(slot => {
+      return slot === leftToRightDiagonal[0];
+    });
 
-  value = leftToRightDiag[0];
+    value = leftToRightDiagonal[0];
+    player = value === 1 ? 'x' : 'o';
 
-  if (value === 0) winner = false;
-
-  player = value === 1 ? 'x' : 'o';
-
-  if (winner) return player;
+    if (winner) return player;
+  }
 
   // in this part we go for the columns
   let columns = [], column;
 
-  for(let i = 0; i < board.length; i++) {
+  for(let i = 0; i < 3; i++) {
     column = [];
 
-    for(let j = 0; j < board.length; j++) {
+    for(let j = 0; j < 3; j++) {
+      if (board[j][i] === 0) break;
       column.push(board[j][i]);
     }
 
-    columns.push(column);
+    if (column.length === 3) columns.push(column);
   }
 
   let values = columns.map(column => {
     return column[0];
   });
 
-  try {
-    columns.forEach((column, index) => {
-      if (values[index] === 0) return;
+  for (let i = 0; i < columns.length; i++) {
+    column = columns[i];
 
-      winner = column.every(slot => {
-        return slot === values[index];
-      });
-
-      player = values[index] === 1 ? 'x' : 'o';
-
-      if (winner) throw BreakException;
+    winner = column.every(slot => {
+      return slot === values[i];
     });
-  } catch (e) {
-    if (e !== BreakException) throw e;
+
+    player = values[i] === 1 ? 'x' : 'o';
+
+    if (winner) return player;
   }
 
-  if (winner) return player;
-
   // and in this one we go for the right to left diagonal
-  let rightToLeft = [];
-  let counter = 2;
+  let rightToLeftDiagonal = [], counter = 2;
 
-  for(let i = 0; i < board.length; i++) {
-    rightToLeft.push(board[i][counter]);
+  for (let i = 0; i < board.length; i++) {
+    if (board[i][counter] === 0) break;
+    rightToLeftDiagonal.push(board[i][counter]);
     counter--;
   }
 
-  winner = rightToLeft.every((currentSlot) => {
-    return currentSlot === rightToLeft[0];
-  });
+  if (rightToLeftDiagonal.length === 3) {
+    winner = rightToLeftDiagonal.every(slot => {
+      return slot === rightToLeftDiagonal[0];
+    });
 
-  value = rightToLeft[0];
+    value = rightToLeftDiagonal[0];
+    player = value === 1 ? 'x' : 'o';
 
-  if (value === 0) winner = false;
-
-  player = value === 1 ? 'x' : 'o';
-
-  if (winner) return player;
+    if (winner) return player;
+  }
 
   return isDraw();
 }
@@ -122,26 +109,52 @@ const isDraw = () => {
   return 'go';
 }
 
-// This is for printing the board at the beginning
-const render = () => {
-  board.forEach((b, outerIndex) => {
-    b.forEach((innerB, innerIndex) => {
-      let slots = document.createElement('div');
-      slots.classList.add('slot');
-      slots.setAttribute('data-row', outerIndex);
-      slots.setAttribute('data-column', innerIndex);
-      document.getElementById('board-container').appendChild(slots);
+const clear = () => {
+  let gameBoard = document.getElementById('board-container');
+
+  board = board.map(row => {
+    return row.map(slot => {
+      return 0;
     });
   });
+
+  gameBoard.classList.remove('bg-orange');
+
+  return null;
+}
+
+// This is for printing the board at the beginning
+const render = () => {
+  let gameBoard = document.getElementById('board-container');
+
+  board.forEach((row, rowIndex) => {
+    row.forEach((slot, columnIndex) => {
+      let slotElement = document.createElement('div');
+      slotElement.classList.add('slot');
+      slotElement.setAttribute('data-row', rowIndex);
+      slotElement.setAttribute('data-column', columnIndex);
+      gameBoard.appendChild(slotElement);
+    });
+  });
+
+  gameBoard.classList.add('bg-orange');
+
+  return null;
 }
 
 // This is for updating the already printed board
-const update = (row, col, value) => {
-  board[row][col] = value;
+const update = (row, col, player) => {
+  if (player.symbol === 'x') {
+    board[row][col] = 1;
+  } else {
+    board[row][col] = 2;
+  }
+
+  return null;
 }
 
 const slotAvailable = (row, col) => {
   return board[row][col] === 0;
 }
 
-export { status, render, update, slotAvailable };
+export { clear, status, render, update, slotAvailable };
