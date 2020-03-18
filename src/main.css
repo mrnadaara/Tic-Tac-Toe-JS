@@ -13,6 +13,10 @@ footer p {
   font-size: 0.9rem;
 }
 
+.clickable:hover {
+  cursor: pointer;
+}
+
 h1, #game-status {
   font-family: 'Permanent Marker', cursive;
 }

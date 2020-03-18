@@ -63,12 +63,19 @@ function start(playerXName, playerOName) {
       currentPlayer = currentPlayer === playerX ? playerO : playerX;
       gameStatus.innerText = currentPlayer.name + "'s turn";
     });
+
+    boardSlots[i].classList.add('clickable');
   }
 }
 
 function gameOver(status, playerX, playerO) {
   let gameBoard = document.getElementById('board-container');
   let gameStatus = document.getElementById('game-status');
+  let slots = document.getElementsByClassName('slot');
+
+  for(let i = 0; i < slots.length; i++) {
+    slots[i].classList.remove('clickable');
+  }
 
   if (playerX.winner) {
     gameStatus.innerText = playerX.name + ' wins!';

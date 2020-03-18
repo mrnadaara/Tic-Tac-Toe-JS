@@ -23,9 +23,10 @@ const status = () => {
     });
 
     player = value === 1 ? 'x' : 'o';
+
+    if (winner) return player;
   }
 
-  if (winner) return player;
 
   // in here we check for a diagonal with all the values equal
   let leftToRightDiagonal = [];
