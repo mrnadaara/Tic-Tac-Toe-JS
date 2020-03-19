@@ -1,5 +1,5 @@
 function playerFactory(name, symbol) {
-  let winner = false;
+  const winner = false;
   return { name, symbol, winner };
 }
 
