@@ -6,8 +6,13 @@ import Game from './game';
 const startButton = document.getElementById('start');
 
 startButton.addEventListener('click', () => {
-  const playerXName = document.getElementById('x-name').value;
-  const playerOName = document.getElementById('o-name').value;
+  let playerXName = document.getElementById('x-name').value;
+  let playerOName = document.getElementById('o-name').value;
+
+  if (playerXName.trim() === '') playerXName = 'X player';
+
+  if (playerOName.trim() === '') playerOName = 'O player';
+
   // Check the names
   Game(playerXName, playerOName);
 });

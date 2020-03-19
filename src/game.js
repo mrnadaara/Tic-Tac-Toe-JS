@@ -43,6 +43,7 @@ function start(playerXName, playerOName) {
   const boardSlots = document.getElementsByClassName('slot');
   let currentPlayer = playerX;
   let status;
+  let moves = 0;
   const gameStatus = document.getElementById('game-status');
   const playerIndicator = document.getElementById('game-status');
   playerIndicator.innerText = `${playerX.name}'s turn`;
@@ -59,6 +60,9 @@ function start(playerXName, playerOName) {
     // change the inner text of the slot
     e.target.innerText = currentPlayer === playerX ? 'x' : 'o';
 
+    // increment the moves
+    moves += 1;
+
     // it is important to update the board before getting the status
     // because if not then you'll be parsing a past board
 
@@ -66,7 +70,7 @@ function start(playerXName, playerOName) {
     Board.update(row, column, currentPlayer);
 
     // the status is going to be either go, x, o, or draw
-    status = Board.status();
+    status = moves >= 5 ? Board.status() : 'go';
 
     // here I check if the status is a game over one
     if (status !== 'go') {
