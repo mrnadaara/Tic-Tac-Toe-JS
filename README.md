@@ -44,6 +44,17 @@ Or, because we already added a `build` script to the `package.json` file, you ca
 ```shell
 npm run build
 ```
+## Testing
+
+This project uses JEST to run tests. A test folder containing all tests has already been made. You can
+run them by typing ``` npm test ``` in your respective terminals.
+
+The conditions tested includes:
+
+- Which player wins
+- Whether a certain condition is met such as a win or draw
+- How the player wins, check whether it was by column, row or diagonal
+- Checks whether the game needs to continue, is there any slots available?
 
 ## Developers
 
