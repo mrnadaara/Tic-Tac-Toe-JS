@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch test/*",
     "build": "webpack"
   },
   "repository": {
@@ -19,12 +19,16 @@
   },
   "homepage": "https://github.com/mrnadaara/Tic-Tac-Toe-JS#readme",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-jest": "^25.4.0",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
     "file-loader": "^6.0.0",
     "html-loader": "^0.5.5",
+    "jest": "^25.4.0",
     "style-loader": "^1.1.3",
     "url-loader": "^4.0.0",
     "webpack": "^4.42.0",
