@@ -2,7 +2,7 @@ import '../src/game';
 
 // obviously not a pure function
 const checkWinStatus = jest.fn((status, player) => {
-  player.winner = status === player.symbol
+  player.winner = status === player.symbol;
 });
 
 // this one either, it hinges on an external object
@@ -38,7 +38,7 @@ describe('gameOver', () => {
 });
 
 describe('checkWinStatus', () => {
-  const player = { winner: false }
+  const player = { winner: false };
 
   afterEach(() => {
     player.winner = false;

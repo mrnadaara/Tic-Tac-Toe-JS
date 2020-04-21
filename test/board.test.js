@@ -7,17 +7,13 @@
 
 // mock function for clear
 const clear = jest.fn((board) => {
-  board = board.map(row => row.map(slot => {
-    return 0;
-  }));
+  board = board.map(row => row.map(slot => 0));
 
   return board;
 });
 
 // mock function for isDraw
-const isDraw = jest.fn((board) => {
-  return board.every(row => row.every(col => col !== 0)) ? 'draw' : 'go';
-});
+const isDraw = jest.fn((board) => (board.every(row => row.every(col => col !== 0)) ? 'draw' : 'go'));
 
 // mock function for status
 const status = jest.fn((board) => {
@@ -126,9 +122,7 @@ describe('clear', () => {
   ];
 
   test('it clears the board array', () => {
-    expect(clear(board).every(row => {
-      return row.every(slot => slot === 0);
-    })).toBeTruthy;
+    expect(clear(board).every(row => row.every(slot => slot === 0))).toBeTruthy;
   });
 });
 
@@ -154,19 +148,19 @@ describe('status', () => {
     const scenario1 = [
       [1, 0, 1],
       [1, 2, 0],
-      [2, 2, 1]
+      [2, 2, 1],
     ];
 
     const scenario2 = [
       [1, 1, 2],
       [2, 1, 1],
-      [0, 2, 0]
+      [0, 2, 0],
     ];
 
     const scenario3 = [
       [0, 0, 0],
       [1, 2, 2],
-      [2, 1, 1]
+      [2, 1, 1],
     ];
 
     test('it returns go', () => {
@@ -207,19 +201,19 @@ describe('status', () => {
       const boardRow1 = [
         [1, 1, 1],
         [2, 2, 0],
-        [0, 0, 0]
+        [0, 0, 0],
       ];
 
       const boardRow2 = [
         [2, 2, 0],
         [1, 1, 1],
-        [0, 0, 0]
+        [0, 0, 0],
       ];
 
       const boardRow3 = [
         [0, 0, 0],
         [2, 2, 0],
-        [1, 1, 1]
+        [1, 1, 1],
       ];
 
       test('it returns x', () => {
@@ -233,19 +227,19 @@ describe('status', () => {
       const boardColumn1 = [
         [1, 2, 0],
         [1, 2, 0],
-        [1, 0, 0]
+        [1, 0, 0],
       ];
 
       const boardColumn2 = [
         [2, 1, 0],
         [2, 1, 0],
-        [0, 1, 0]
+        [0, 1, 0],
       ];
 
       const boardColumn3 = [
         [0, 2, 1],
         [0, 2, 1],
-        [0, 0, 1]
+        [0, 0, 1],
       ];
 
       test('it returns x', () => {
@@ -259,13 +253,13 @@ describe('status', () => {
       const boardDiagonal1 = [
         [1, 2, 0],
         [2, 1, 0],
-        [0, 0, 1]
+        [0, 0, 1],
       ];
 
       const boardDiagonal2 = [
         [0, 2, 1],
         [0, 1, 2],
-        [1, 0, 0]
+        [1, 0, 0],
       ];
 
       test('it returns x', () => {
@@ -280,19 +274,19 @@ describe('status', () => {
       const boardRow1 = [
         [2, 2, 2],
         [1, 1, 0],
-        [0, 1, 0]
+        [0, 1, 0],
       ];
 
       const boardRow2 = [
         [1, 1, 0],
         [2, 2, 2],
-        [1, 0, 0]
+        [1, 0, 0],
       ];
 
       const boardRow3 = [
         [0, 1, 0],
         [1, 1, 0],
-        [2, 2, 2]
+        [2, 2, 2],
       ];
 
       test('it returns o', () => {
@@ -306,19 +300,19 @@ describe('status', () => {
       const boardColumn1 = [
         [2, 1, 0],
         [2, 1, 1],
-        [2, 0, 0]
+        [2, 0, 0],
       ];
 
       const boardColumn2 = [
         [1, 2, 0],
         [1, 2, 1],
-        [0, 2, 0]
+        [0, 2, 0],
       ];
 
       const boardColumn3 = [
         [0, 1, 2],
         [1, 1, 2],
-        [0, 0, 2]
+        [0, 0, 2],
       ];
 
       test('it returns o', () => {
@@ -332,13 +326,13 @@ describe('status', () => {
       const boardDiagonal1 = [
         [2, 1, 0],
         [1, 2, 0],
-        [1, 0, 2]
+        [1, 0, 2],
       ];
 
       const boardDiagonal2 = [
         [0, 1, 2],
         [0, 2, 1],
-        [2, 1, 0]
+        [2, 1, 0],
       ];
 
       test('it returns o', () => {
@@ -353,7 +347,7 @@ describe('slotAvailable', () => {
   const board = [
     [1, 0, 1],
     [2, 1, 0],
-    [0, 0, 2]
+    [0, 0, 2],
   ];
 
   slotAvailable(board, 0, 0);
@@ -376,7 +370,7 @@ describe('update', () => {
   const board = [
     [0, 0, 0],
     [0, 0, 0],
-    [0, 0, 0]
+    [0, 0, 0],
   ];
 
   const playerX = { name: 'Player X', symbol: 'x', winner: false };
