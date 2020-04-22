@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <script src="https://kit.fontawesome.com/671f6231ff.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="bg-orange py-5">
+      <header class="container">
+        <h1 class="text-center">Tic-Tac-Toe</h1>
+        <p class="mt-4">
+        Have you ever played Tic Tac Toe? It is a very simple game, you can find
+        the rules and other information in
+        <a href="#" target="_blank">this link</a>. The
+        <abbr title="User Interface">UI</abbr> should be very intuitive,
+        just place the player names in the fields, and afterwards click
+        <strong>START</strong>. Enjoy the game!
+        </p>
+      </header>
+    </div>
+    <main class="container-fluid">
+      <div class="row py-5">
+        <div class="col-12 col-md-4">
+          <form class="bg-dark rounded-lg p-3">
+            <div class="form-group">
+              <label class="text-light" for="x-name">X player name</label>
+              <input class="form-control" type="text" id="x-name" name="x-name">
+            </div>
+            <div class="form-group">
+              <label class="text-light" for="o-name">O player name</label>
+              <input class="form-control" type="text" id="o-name" name="o-name">
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-primary btn-lg" id="start">START</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-12 col-md-8">
+          <div class="game-wrapper mt-4">
+            <p id="game-status" class="text-center"></p>
+            <div class="p-4 rounded-lg" id="board-container"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="container-fluid bg-dark text-light py-5 text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-5">
+            <p>
+            &copy; Sharmarke Ahmed and Santiago Rodríguez
+            </p>
+          </div>
+          <div class="col-12 col-md-5 offset-md-2">
+            <p>
+            Visit the repository to see the source code!
+            </p>
+            <div id="source-code" class="text-center">
+              <p id="repo-link">
+              <a href="#" target="_blank">
+                <i class="fab fa-github-square"></i>
+              </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>
