@@ -49,17 +49,17 @@ describe('checkWinStatus', () => {
 
     test('changes winner to true when status is x', () => {
       checkWinStatus('x', player);
-      expect(player.winner).toBeTruthy;
+      expect(player.winner).toBeTruthy();
     });
 
     test('changes nothing when status is go', () => {
       checkWinStatus('go', player);
-      expect(player.winner).toBeFalsy;
+      expect(player.winner).toBeFalsy();
     });
 
     test('changes nothing when status is o', () => {
       checkWinStatus('o', player);
-      expect(player.winner).toBeFalsy;
+      expect(player.winner).toBeFalsy();
     });
   });
 
@@ -68,17 +68,17 @@ describe('checkWinStatus', () => {
 
     test('changes winner to true when status is o', () => {
       checkWinStatus('o', player);
-      expect(player.winner).toBeTruthy;
+      expect(player.winner).toBeTruthy();
     });
 
     test('changes nothing when status is go', () => {
       checkWinStatus('go', player);
-      expect(player.winner).toBeFalsy;
+      expect(player.winner).toBeFalsy();
     });
 
     test('changes nothing when status is x', () => {
       checkWinStatus('x', player);
-      expect(player.winner).toBeFalsy;
+      expect(player.winner).toBeFalsy();
     });
   });
 });

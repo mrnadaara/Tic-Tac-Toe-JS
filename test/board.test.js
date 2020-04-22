@@ -7,7 +7,7 @@
 
 // mock function for clear
 const clear = jest.fn((board) => {
-  board = board.map(row => row.map(slot => 0));
+  board = board.map(row => row.map(() => 0));
 
   return board;
 });
@@ -122,7 +122,7 @@ describe('clear', () => {
   ];
 
   test('it clears the board array', () => {
-    expect(clear(board).every(row => row.every(slot => slot === 0))).toBeTruthy;
+    expect(clear(board).every(row => row.every(slot => slot === 0))).toBeTruthy();
   });
 });
 
@@ -356,13 +356,13 @@ describe('slotAvailable', () => {
   slotAvailable(board, 2, 0);
 
   test('it returns false if the slot is not 0', () => {
-    expect(slotAvailable.mock.results[0].value).toBeFalsy;
-    expect(slotAvailable.mock.results[1].value).toBeFalsy;
+    expect(slotAvailable.mock.results[0].value).toBeFalsy();
+    expect(slotAvailable.mock.results[1].value).toBeFalsy();
   });
 
   test('it returns true if the slot is 0', () => {
-    expect(slotAvailable.mock.results[2].value).toBeTruthy;
-    expect(slotAvailable.mock.results[3].value).toBeTruthy;
+    expect(slotAvailable.mock.results[2].value).toBeTruthy();
+    expect(slotAvailable.mock.results[3].value).toBeTruthy();
   });
 });
 
