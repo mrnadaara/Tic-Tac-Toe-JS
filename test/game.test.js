@@ -38,14 +38,12 @@ describe('gameOver', () => {
 });
 
 describe('checkWinStatus', () => {
-  const player = { winner: false };
-
-  afterEach(() => {
-    player.winner = false;
-  });
-
   describe('player symbol is x', () => {
-    player.symbol = 'x';
+    const player = { symbol: 'x', winner: false };
+
+    afterEach(() => {
+      player.winner = false;
+    });
 
     test('changes winner to true when status is x', () => {
       checkWinStatus('x', player);
@@ -64,7 +62,11 @@ describe('checkWinStatus', () => {
   });
 
   describe('player symbol is o', () => {
-    player.symbol = 'o';
+    const player = { symbol: 'o', winner: false };
+
+    afterEach(() => {
+      player.winner = false;
+    });
 
     test('changes winner to true when status is o', () => {
       checkWinStatus('o', player);
