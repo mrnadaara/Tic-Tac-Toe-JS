@@ -1,6 +1,8 @@
+/* eslint-disable import/no-unresolved */
 import 'bootstrap';
-import './main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+/* eslint-enable import/no-unresolved */
+import './main.css';
 import Game from './game';
 
 const startButton = document.getElementById('start');
